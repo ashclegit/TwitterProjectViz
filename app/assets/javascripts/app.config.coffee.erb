@@ -7,6 +7,11 @@ angular.module('unity-site')
           url: '/home'
           templateUrl: "<%= asset_path 'layout/layout.html' %>"
           controller: 'appController as appCtrl'
+          resolve: {
+            assignments: (assignmentFactory) ->
+              alert('wow!')
+              return assignmentFactory.getAll();
+          }
         })
 
         .state('home.cards', {
