@@ -9,7 +9,6 @@ angular.module('unity-site')
           controller: 'appController as appCtrl'
           resolve: {
             assignments: (assignmentFactory) ->
-              console.log "Resolving..."
               return assignmentFactory.getAll();
           }
         })
