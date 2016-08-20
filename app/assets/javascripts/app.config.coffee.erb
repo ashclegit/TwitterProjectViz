@@ -12,11 +12,13 @@ angular.module('unity-site')
               return assignmentFactory.getAll();
           }
         })
+
         .state('home.cards', {
           url: '/cards'
           templateUrl: "<%= asset_path 'cards/layout/cards.html' %>"
           controller: 'cardsController as cardCtrl'
         })
+        
         .state('home.assignment', {
           url: '/display'
           templateUrl: "<%= asset_path 'assignments/layout/assignments.html' %>"
