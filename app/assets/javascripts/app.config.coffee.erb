@@ -7,6 +7,11 @@ angular.module('unity-site')
           url: '/home'
           templateUrl: "<%= asset_path 'layout/layout.html' %>"
           controller: 'appController as appCtrl'
+          resolve: {
+            assignments: ['assignmentFactory', (assignmentFactory) ->
+              return assignmentFactory.getAll();
+            ]
+          }
         })
 
         .state('home.cards', {
@@ -20,9 +25,10 @@ angular.module('unity-site')
           templateUrl: "<%= asset_path 'assignments/layout/assignments.html' %>"
           controller: 'assignmentsController as assignmentsCtrl'
           params: {assignment: null}
-          onEnter: ($stateParams, $state) ->
+          onEnter: ['$stateParams', '$state', ($stateParams, $state) ->
             $state.go('home.cards') unless ($stateParams.assignment);
             return;
+          ]
         })
 
       $urlRouterProvider.otherwise('/home/cards');

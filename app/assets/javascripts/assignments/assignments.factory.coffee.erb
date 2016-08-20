@@ -1,55 +1,21 @@
 angular.module('unity-site')
-  .factory('assignmentFactory', [
-    () ->
+  .factory('assignmentFactory', ['$http', '$q'
+    ($http, $q) ->
       factory = {};
 
-      factory.assignments = [
-        {
-          "title": "Assignment 1",
-          "description": "My First Assignment!",
-          "color": "darkgreen",
-          "image": "<%= asset_path 'unity.png'%>",
-          "src": "#"
-        },
-        {
-          "title": "Assignment 2",
-          "description": "Cool Stuff",
-          "color": "darkblue",
-          "image": "<%= asset_path 'unity.png'%>",
-          "src": "#"
-        },
-        {
-          "title": "Assignment 3",
-          "description": "Seriously!",
-          "color": "darkorange",
-          "image": "<%= asset_path 'unity.png'%>",
-          "src": "#"
-        },
-        {
-          "title": "Assignment 4",
-          "description": "Neat code!",
-          "color": "darkred",
-          "image": "<%= asset_path 'unity.png'%>",
-          "src": "#"
-        },
-        {
-          "title": "Assignment 5",
-          "description": "Pretty swell!",
-          "color": "darkpurple",
-          "image": "<%= asset_path 'unity.png'%>",
-          "src": "#"
-        },
-        {
-          "title": "Assignment 6",
-          "description": "This one is mediocre...",
-          "color": "darkgrey",
-          "image": "<%= asset_path 'unity.png'%>",
-          "src": "#"
-        }
-      ];
+      factory.assignments = null;
 
       factory.getAll = () ->
-        return factory.assignments;
+        deferred = $q.defer();
+        if factory.assignments?
+          deferred.resolve(factory.assignments);
+        else
+          $http.get("<%= asset_path 'assignments/data/assignments.json' %>")
+            .then((response)->
+              factory.assignments = response.data;
+              deferred.resolve(factory.assignments);
+            )
+        return deferred.promise;
 
       return factory;
   ]);
