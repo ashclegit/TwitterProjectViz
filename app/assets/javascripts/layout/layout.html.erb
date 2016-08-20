@@ -4,7 +4,11 @@
               md-component-id="left"
               md-whiteframe="2">
     <header layout layout-align="center">
-      <img flex="75" src="/assets/unity.png" class="img-responsive" style="margin-top: 10px;"/>
+      <md-toolbar class="md-warn md-hue-4">
+        <div class="md-toolbar-tools">
+          <h4>Select an Assignment</h4>
+        </div>
+      </md-toolbar>
     </header>
     <md-content layout>
       <md-list flex>
@@ -46,8 +50,13 @@
   <md-sidenav class="md-sidenav-right"
               md-component-id="right"
               md-whiteframe="2">
+    <md-toolbar class="md-accent md-hue-2">
+      <div class="md-toolbar-tools">
+        <h4>About Me</h4>
+      </div>
+    </md-toolbar>
     <header layout layout-align="center">
-      <img flex="75" src="/assets/me.jpg" class="img-responsive img-rounded" style="margin-top: 10px;"/>
+      <img flex="60" src="<%=asset_path '/assets/me.jpg'%>" class="img-responsive img-rounded" style="margin-top: 10px;"/>
     </header>
     <md-content layout>
       <md-list flex>
