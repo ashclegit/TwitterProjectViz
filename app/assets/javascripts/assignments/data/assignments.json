@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Assignment 1",
+    "description": "My First Assignment!",
+    "color": "darkgreen",
+    "image": "assets/unity.png",
+    "src": "#"
+  },
+  {
+    "title": "Assignment 2",
+    "description": "Cool Stuff",
+    "color": "darkblue",
+    "image": "assets/unity.png",
+    "src": "#"
+  },
+  {
+    "title": "Assignment 3",
+    "description": "Seriously!",
+    "color": "darkorange",
+    "image": "assets/unity.png",
+    "src": "#"
+  },
+  {
+    "title": "Assignment 4",
+    "description": "Neat code!",
+    "color": "darkred",
+    "image": "assets/unity.png",
+    "src": "#"
+  },
+  {
+    "title": "Assignment 5",
+    "description": "Pretty swell!",
+    "color": "darkpurple",
+    "image": "assets/unity.png",
+    "src": "#"
+  },
+  {
+    "title": "Assignment 6",
+    "description": "This one is mediocre...",
+    "color": "darkgrey",
+    "image": "assets/unity.png",
+    "src": "#"
+  }
+]

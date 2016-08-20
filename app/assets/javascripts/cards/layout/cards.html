@@ -1,0 +1,19 @@
+<div layout="row" layout-wrap layout-align="center">
+  <md-card ng-repeat='card in cardCtrl.cards' md-theme='{{card.color}}'>
+    <md-card-title layout>
+      <md-card-title-text flex="60" style="max-width: 190px;">
+        <span class="md-headline">{{card.title}}</span>
+        <span class="md-subhead">{{card.description}}</span>
+      </md-card-title-text>
+      <md-card-title-media flex="40" layout>
+        <div flex class="md-media-lg card-media">
+          <img ng-src="{{card.image}}"/>
+        </div>
+      </md-card-title-media>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-click="cardCtrl.go(card)">Launch Demo</md-button>
+      <md-button>View Source</md-button>
+    </md-card-actions>
+  </md-card>
+</div>

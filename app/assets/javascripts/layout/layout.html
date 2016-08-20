@@ -1,0 +1,95 @@
+<div layout="row" class="full-height">
+  <!-- Navigaton Panel -->
+  <md-sidenav class="md-sidenav-left"
+              md-component-id="left"
+              md-whiteframe="2">
+    <header layout layout-align="center">
+      <img flex="75" src="/assets/unity.png" class="img-responsive" style="margin-top: 10px;"/>
+    </header>
+    <md-content layout>
+      <md-list flex>
+        <md-list-item ng-click="appCtrl.go(entry)"
+                      ng-repeat="entry in appCtrl.assignments">
+          {{entry.title}}
+        <md-divider ></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </md-sidenav>
+
+  <!-- Main Content Area and menu bar -->
+  <section flex layout="column">
+    <md-toolbar md-whiteframe="2">
+      <div class="md-toolbar-tools" layout>
+        <md-button class="md-icon-button"
+                   ng-click="appCtrl.toggleLeft()">
+          <span class="fa fa-bars"></span>
+        </md-button>
+        <md-button class="md-icon-button"
+                   ng-href="#/home/cards">
+          <span class="fa fa-home"></span>
+        </md-button>
+        <h2><span>Nick Glyder's CPSC 8810 Assignments</span></h2>
+        <span flex></span>
+        <md-button class="md-icon-button"
+                   ng-click="appCtrl.toggleRight()">
+          <span class="fa fa-info"></span>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content layout class="md-padding">
+      <div flex ui-view></div>
+    </md-content>
+  </section>
+
+  <!-- About me sidenav -->
+  <md-sidenav class="md-sidenav-right"
+              md-component-id="right"
+              md-whiteframe="2">
+    <header layout layout-align="center">
+      <img flex="75" src="/assets/me.jpg" class="img-responsive img-rounded" style="margin-top: 10px;"/>
+    </header>
+    <md-content layout>
+      <md-list flex>
+        <!-- Clemson Email -->
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h4>Clemson Email <span class="fa fa-envelope-o"></span></h4>
+            <p>nglyder@g.clemson.edu</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <!-- Personal Email -->
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <h4>Personal Email <span class="fa fa-envelope-o"></span></h4>
+            <p>nickglyder@gmail.com</p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <!-- Bitbucket Profile -->
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <md-button ng-href="https://bitbucket.org/nicklaus_glyder/" md-theme="darkblue" class="md-raised">
+              <span class="fa fa-bitbucket">&nbsp;&nbsp;</span>Bitbucket
+            </md-button>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+        <!-- Github Profile -->
+        <md-list-item class="md-2-line">
+          <div class="md-list-item-text" layout="column">
+            <md-button ng-href="https://github.com/nglyder" md-theme="darkpurple" class="md-raised">
+              <span class="fa fa-github">&nbsp;&nbsp;</span>Github
+            </md-button>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+
+      </md-list>
+    </md-content>
+  </md-sidenav>
+</div>

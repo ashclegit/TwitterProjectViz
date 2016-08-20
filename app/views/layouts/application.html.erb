@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nick Glyder Unity Site</title>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
+  <!--This is so the site looks good on mobile browsers-->
+  <meta content="user-scalable=no,
+                 initial-scale=1,
+                 maximum-scale=1,
+                 minimum-scale=1,
+                 width=device-width,
+                 height=device-height,
+                 target-densitydpi=medium-dpi"
+        name='viewport' />
+  </head>
+  <body ng-app="unity-site" ng-class="$state.current.name | dotToDash" ng-cloak>
+    <div ui-view class="full-height"></div>
+  </body>
+</html>
