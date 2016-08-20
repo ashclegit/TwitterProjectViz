@@ -1,6 +1,6 @@
 angular.module('unity-site')
-  .controller('appController', ['$mdSidenav', 'assignments', '$state',
-    ($mdSidenav, assignments, $state) ->
+  .controller('appController', ['$mdSidenav', '$state', 'assignmentFactory',
+    ($mdSidenav, $state, assignmentFactory) ->
       this.toggleLeft = () ->
         $mdSidenav('left').toggle();
         return;
@@ -9,7 +9,7 @@ angular.module('unity-site')
         $mdSidenav('right').toggle();
         return;
 
-      this.assignments = assignments;
+      this.assignments = assignmentFactory.getAll();
 
       this.go = (selected_assignment) ->
         $state.go('home.assignment', {assignment: selected_assignment});
