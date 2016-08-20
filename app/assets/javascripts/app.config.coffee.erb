@@ -9,6 +9,7 @@ angular.module('unity-site')
           controller: 'appController as appCtrl'
           resolve: {
             assignments: (assignmentFactory) ->
+              console.log "Resolving..."
               return assignmentFactory.getAll();
           }
         })
@@ -18,7 +19,7 @@ angular.module('unity-site')
           templateUrl: "<%= asset_path 'cards/layout/cards.html' %>"
           controller: 'cardsController as cardCtrl'
         })
-        
+
         .state('home.assignment', {
           url: '/display'
           templateUrl: "<%= asset_path 'assignments/layout/assignments.html' %>"
