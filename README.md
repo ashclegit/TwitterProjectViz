@@ -1,4 +1,4 @@
-* CPSC 8810 Assignment Website
+* Rails + Angular + Material Template App
 ===
-Simple Angular App!
-Also a chance to play with Angular Material. 
+This is a Rails 5 app, built for interfacing with an Angular 1.5+ application.
+Also has Angular Material support. 

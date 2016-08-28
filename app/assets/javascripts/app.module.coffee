@@ -5,7 +5,7 @@ angular.module('unity-site', [
   ])
   .run(['$rootScope', '$state', '$stateParams', '$log',
     ($rootScope, $state, $stateParams, $log) ->
-      $log.info('Loading Site... please wait');
+      $log.info('Loading Main Module');
       $rootScope.$state = $state;
       $rootScope.$stateParams = $stateParams;
   ]);

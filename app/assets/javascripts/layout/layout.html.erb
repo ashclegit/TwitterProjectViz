@@ -1,23 +1,16 @@
 <div layout="row" class="full-height">
-  <!-- Navigaton Panel -->
+  <!-- left sidenav -->
   <md-sidenav class="md-sidenav-left"
               md-component-id="left"
               md-whiteframe="2">
     <header layout layout-align="center">
-      <md-toolbar class="md-warn md-hue-4">
+      <md-toolbar class="md-primary">
         <div class="md-toolbar-tools">
-          <h4>Select an Assignment</h4>
+          <h4>Left Nav</h4>
         </div>
       </md-toolbar>
     </header>
     <md-content layout>
-      <md-list flex>
-        <md-list-item ng-click="appCtrl.go(entry)"
-                      ng-repeat="entry in appCtrl.assignments">
-          {{entry.title}}
-        <md-divider ></md-divider>
-        </md-list-item>
-      </md-list>
     </md-content>
   </md-sidenav>
 
@@ -29,11 +22,7 @@
                    ng-click="appCtrl.toggleLeft()">
           <span class="fa fa-bars"></span>
         </md-button>
-        <md-button class="md-icon-button"
-                   ng-href="#/home/cards">
-          <span class="fa fa-home"></span>
-        </md-button>
-        <h2><span>Nick Glyder's CPSC 8810 Assignments</span></h2>
+        <h2><span>Rails Template</span></h2>
         <span flex></span>
         <md-button class="md-icon-button"
                    ng-click="appCtrl.toggleRight()">
@@ -46,38 +35,17 @@
     </md-content>
   </section>
 
-  <!-- About me sidenav -->
+  <!-- right sidenav -->
   <md-sidenav class="md-sidenav-right"
               md-component-id="right"
               md-whiteframe="2">
-    <md-toolbar class="md-accent md-hue-2">
+    <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <h4>About Me</h4>
+        <h4>Right Nav</h4>
       </div>
     </md-toolbar>
-    <header layout layout-align="center">
-      <img flex="60" src="<%=asset_path 'me.jpg'%>" class="img-responsive img-rounded" style="margin-top: 10px;"/>
-    </header>
     <md-content layout>
       <md-list flex>
-        <!-- Clemson Email -->
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text" layout="column">
-            <h4>Clemson Email <span class="fa fa-envelope-o"></span></h4>
-            <p>nglyder@g.clemson.edu</p>
-          </div>
-        </md-list-item>
-        <md-divider></md-divider>
-
-        <!-- Personal Email -->
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text" layout="column">
-            <h4>Personal Email <span class="fa fa-envelope-o"></span></h4>
-            <p>nickglyder@gmail.com</p>
-          </div>
-        </md-list-item>
-        <md-divider></md-divider>
-
         <!-- Bitbucket Profile -->
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
@@ -87,7 +55,6 @@
           </div>
         </md-list-item>
         <md-divider></md-divider>
-
         <!-- Github Profile -->
         <md-list-item class="md-2-line">
           <div class="md-list-item-text" layout="column">
@@ -97,7 +64,6 @@
           </div>
         </md-list-item>
         <md-divider></md-divider>
-
       </md-list>
     </md-content>
   </md-sidenav>
