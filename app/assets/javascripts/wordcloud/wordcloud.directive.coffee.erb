@@ -4,7 +4,6 @@ angular.module("debate-visualization")
         restrict: 'E',
         templateUrl: "<%= asset_path 'wordcloud/layout/layout.html' %>",
         scope: {
-          id: '@',
           words: '='
         },
 
@@ -12,10 +11,10 @@ angular.module("debate-visualization")
           # Fit to available space
           wcRect    = element.children()[0].getBoundingClientRect();
           wcWidth   = wcRect.width;
-          wcHeight  = wcRect.width;
+          wcHeight  = wcWidth;
 
           scope.$watch('words', (newVal, oldVal) ->
-            console.log scope.words
+            if newVal == undefined || newVal == null then return;
 
             # Layout definition
             layout = d3.layout.cloud()
@@ -28,7 +27,7 @@ angular.module("debate-visualization")
 
             # Render Function
             draw = (words) ->
-              d3.select('#wcloud').append("svg")
+              d3.select(element.children()[0]).append("svg")
                 .attr("width", layout.size()[0])
                 .attr("height", layout.size()[1])
               .append("g")

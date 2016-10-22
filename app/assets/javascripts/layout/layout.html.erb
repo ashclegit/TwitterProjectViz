@@ -1,94 +1,17 @@
+<!-- Banner directive -->
 <banner></banner>
 
 <!-- Content -->
 <div class="row">
+  
   <!-- ****************** Hillary ******************* -->
   <div class="col-md-6 col-xs-12">
-
-    <!-- Bio -->
-    <div class="panel panel-default democrat row">
-      <div class="panel-heading">
-        <h3 class="panel-title">Bio</h3>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-4">
-            <img src="<%= asset_path('hillary-portrait.jpg') %>" alt="Hillary Clinton Portrait"
-                 class="img-responsive"/>
-          </div>
-          <div class="col-md-8 well">
-            <p>
-              Here is some info on Secretary Clinton!
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Word Cloud -->
-    <div class="panel panel-default democrat row">
-      <div class="panel-heading">
-        <h3 class="panel-title">Word Cloud</h3>
-      </div>
-      <div class="panel-body">
-        <div class="well row">
-          <p>
-            Describe word cloud, add key etc.
-          </p>
-        </div>
-        <wordcloud words="appCtrl.words"></wordcloud>
-      </div>
-    </div>
-
-    <!-- DC Charts -->
-    <div class="panel panel-default democrat">
-      <div class="panel-heading">
-        <h3 class="panel-title">DC Charts</h3>
-      </div>
-      <div class="panel-body">
-
-      </div>
-    </div>
+    <ng-include src="appCtrl.hillary_content"></ng-include>
   </div>
-  <!-- ****************** Hillary ******************* -->
 
   <!-- ****************** Trump ******************* -->
   <div class="col-md-6 col-xs-12">
-    <!-- Bio -->
-    <div class="panel panel-default republican row">
-      <div class="panel-heading">
-        <h3 class="panel-title">Bio</h3>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-4">
-            <img src="<%= asset_path 'trump-portrait.jpg' %>" alt="Donald Trump Portrait"
-                 class="img-responsive"/>
-          </div>
-          <div class="col-md-8 well">
-            <p>
-              Here is some info on The Donald!
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Word Cloud -->
-    <div class="panel panel-default republican row">
-      <div class="panel-heading">
-        <h3 class="panel-title">Word Cloud</h3>
-      </div>
-      <div class="panel-body">
-        <div class="well row">
-          <p>
-            Describe word cloud, add key etc.
-          </p>
-        </div>
-        <div id="rep-words" class="row">
-        </div>
-      </div>
-    </div>
+    <ng-include src="appCtrl.trump_content"></ng-include>
   </div>
-  <!-- ****************** Trump ******************* -->
 
 </div>

@@ -1,5 +1,10 @@
 @import "mixins";
 
+body {
+  background-image: asset_url("paper.jpg");
+  background-size: cover;
+}
+
 div {
   &.row {
     margin-left: 0;
