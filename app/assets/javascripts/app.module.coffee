@@ -1,4 +1,4 @@
-angular.module('unity-site', [
+angular.module('debate-visualization', [
   'ui.router',
   'templates',
   'ngMaterial',

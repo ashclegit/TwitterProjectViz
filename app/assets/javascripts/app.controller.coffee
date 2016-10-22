@@ -1,4 +1,4 @@
-angular.module('unity-site')
+angular.module('debate-visualization')
   .controller('appController', ['$mdSidenav', '$state',
     ($mdSidenav, $state) ->
       this.toggleLeft = () ->
