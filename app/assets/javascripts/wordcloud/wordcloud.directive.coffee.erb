@@ -1,0 +1,53 @@
+angular.module("debate-visualization")
+  .directive("wordcloud", () ->
+    return {
+        restrict: 'E',
+        templateUrl: "<%= asset_path 'wordcloud/layout/layout.html' %>",
+        scope: {
+          id: '@',
+          words: '='
+        },
+
+        link: (scope, element, attrs) ->
+          # Fit to available space
+          wcRect    = element.children()[0].getBoundingClientRect();
+          wcWidth   = wcRect.width;
+          wcHeight  = wcRect.width;
+
+          scope.$watch('words', (newVal, oldVal) ->
+            console.log scope.words
+
+            # Layout definition
+            layout = d3.layout.cloud()
+              .size([wcWidth, wcHeight])
+              .words(scope.words)
+              .padding(5)
+              .rotate(() -> return ~~(Math.random() * 2) * 45;)
+              .font("Impact")
+              .fontSize((d) -> return d.size;)
+
+            # Render Function
+            draw = (words) ->
+              d3.select('#wcloud').append("svg")
+                .attr("width", layout.size()[0])
+                .attr("height", layout.size()[1])
+              .append("g")
+                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+              .selectAll("text")
+                .data(words)
+              .enter().append("text")
+                .style("font-size", (d) -> return d.size + "px";)
+                .style("font-family", "Impact")
+                .style("fill", (d, i) -> return '#445566';)
+                .attr("text-anchor", "middle")
+                .attr("transform", (d) ->
+                  return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                )
+                .text( (d) -> return d.text;);
+
+            # Start layout and render
+            layout.on("end", draw);
+            layout.start();
+          );
+    };  # return
+  );

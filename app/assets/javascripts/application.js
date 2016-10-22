@@ -11,6 +11,10 @@
 //= require angular-rails-templates
 // BOOTSTRAP
 //= require bootstrap
+// D3
+//= require d3
+//= require d3-dispatch/src/dispatch
+//= require d3-cloud
 // APP MODULES
 //= require app.module
 // EVERYTHING ELSE - Note that template engine works here

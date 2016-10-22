@@ -1,14 +1,5 @@
 @import "mixins";
 
-.affix {
-  top: 0;
-  width: 100%;
-}
-
-.affix-top {
-  width: 100%;
-}
-
 div {
   &.row {
     margin-left: 0;
@@ -42,27 +33,4 @@ div.panel-default {
       background-color: $republican_red;
     }
   }
-}
-
-#header-wrapper {
-  min-height:50px;
-  margin-bottom: 30px;
-
-  #header-bar {
-    div {
-      &.democrat {
-        @include textShadow;
-        @include boxShadow;
-        color: white;
-        background-color: $democrat_blue;
-      }
-      &.republican {
-        @include textShadow;
-        @include boxShadow;
-        color: white;
-        background-color: $republican_red;
-      }
-    }
-  }
-
 }

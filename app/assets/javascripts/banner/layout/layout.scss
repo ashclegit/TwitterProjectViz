@@ -1,5 +1,14 @@
 @import "mixins";
 
+.affix {
+  top: 0;
+  width: 100%;
+}
+
+.affix-top {
+  width: 100%;
+}
+
 #banner {
   height: 400px;
 
@@ -23,4 +32,27 @@
     @include boxShadow;
     background: rgba(230, 230, 230, 0.35);
   }
+}
+
+#header-wrapper {
+  min-height:50px;
+  margin-bottom: 30px;
+
+  #header-bar {
+    div {
+      &.democrat {
+        @include textShadow;
+        @include boxShadow;
+        color: white;
+        background-color: $democrat_blue;
+      }
+      &.republican {
+        @include textShadow;
+        @include boxShadow;
+        color: white;
+        background-color: $republican_red;
+      }
+    }
+  }
+
 }
