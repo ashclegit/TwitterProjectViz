@@ -12,7 +12,7 @@
 #banner {
   height: 400px;
 
-  background-image: url("/assets/whitehouse.jpeg");
+  background-image: asset-url("whitehouse.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

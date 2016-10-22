@@ -3,7 +3,7 @@ angular.module('debate-visualization')
     ($http) ->
       self = this;
       self.words = "loading..."
-      $http.get('assets/wordcloud/data/hillary-wc.json').then( (response) ->
+      $http.get("<%= asset_path 'wordcloud/data/hillary-wc.json' %>").then( (response) ->
         self.words = response.data.map((d) -> {text: d.word, size: 10 + Math.random() * 90, sentiment: Math.random() + 1});
       );
       return;
