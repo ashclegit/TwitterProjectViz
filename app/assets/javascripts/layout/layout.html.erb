@@ -1,70 +1,121 @@
-<div layout="row" class="full-height">
-  <!-- left sidenav -->
-  <md-sidenav class="md-sidenav-left"
-              md-component-id="left"
-              md-whiteframe="2">
-    <header layout layout-align="center">
-      <md-toolbar class="md-primary">
-        <div class="md-toolbar-tools">
-          <h4>Left Nav</h4>
+<!-- Banner -->
+<div class="row">
+  <div id="banner" class="col-md-12 vertical-center horizontal-center">
+    <div class="text-center jumbotron">
+      <h1>Decision 2016</h1>
+      <h2>Semantic Analysis of Tweets</h2>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <button class="btn btn-default">Get Source</button>
+          <button class="btn btn-default">Paper Link</button>
         </div>
-      </md-toolbar>
-    </header>
-    <md-content layout>
-    </md-content>
-  </md-sidenav>
-
-  <!-- Main Content Area and menu bar -->
-  <section flex layout="column">
-    <md-toolbar md-whiteframe="2">
-      <div class="md-toolbar-tools" layout>
-        <md-button class="md-icon-button"
-                   ng-click="appCtrl.toggleLeft()">
-          <span class="fa fa-bars"></span>
-        </md-button>
-        <h2><span>Rails Template</span></h2>
-        <span flex></span>
-        <md-button class="md-icon-button"
-                   ng-click="appCtrl.toggleRight()">
-          <span class="fa fa-info"></span>
-        </md-button>
       </div>
-    </md-toolbar>
-    <md-content layout class="md-padding">
-      <div flex ui-view></div>
-    </md-content>
-  </section>
+    </div>
+  </div>
+</div>
 
-  <!-- right sidenav -->
-  <md-sidenav class="md-sidenav-right"
-              md-component-id="right"
-              md-whiteframe="2">
-    <md-toolbar class="md-primary">
-      <div class="md-toolbar-tools">
-        <h4>Right Nav</h4>
+<!-- Header Bar -->
+<div id="header-wrapper">
+  <div id="header-bar" class="row" data-spy="affix" data-offset-top="400">
+    <div class="col-md-6 col-xs-12 democrat text-center">
+      <h2>Hillary Clinton</h2>
+    </div>
+    <div class="col-md-6 col-xs-12 republican text-center">
+      <h2>Donald Trump</h2>
+    </div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="row">
+  <!-- ****************** Hillary ******************* -->
+  <div class="col-md-6 col-xs-12">
+
+    <!-- Bio -->
+    <div class="panel panel-default democrat row">
+      <div class="panel-heading">
+        <h3 class="panel-title">Bio</h3>
       </div>
-    </md-toolbar>
-    <md-content layout>
-      <md-list flex>
-        <!-- Bitbucket Profile -->
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text" layout="column">
-            <md-button ng-href="https://bitbucket.org/nicklaus_glyder/" md-theme="darkblue" class="md-raised">
-              <span class="fa fa-bitbucket">&nbsp;&nbsp;</span>Bitbucket
-            </md-button>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img src="assets/hillary-portrait.jpg" alt="Hillary Clinton Portrait"
+                 class="img-responsive"/>
           </div>
-        </md-list-item>
-        <md-divider></md-divider>
-        <!-- Github Profile -->
-        <md-list-item class="md-2-line">
-          <div class="md-list-item-text" layout="column">
-            <md-button ng-href="https://github.com/nglyder" md-theme="darkpurple" class="md-raised">
-              <span class="fa fa-github">&nbsp;&nbsp;</span>Github
-            </md-button>
+          <div class="col-md-8 well">
+            <p>
+              Here is some info on Secretary Clinton!
+            </p>
           </div>
-        </md-list-item>
-        <md-divider></md-divider>
-      </md-list>
-    </md-content>
-  </md-sidenav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Word Cloud -->
+    <div class="panel panel-default democrat row">
+      <div class="panel-heading">
+        <h3 class="panel-title">Word Cloud</h3>
+      </div>
+      <div class="panel-body">
+        <div class="well row">
+          <p>
+            Describe word cloud, add key etc.
+          </p>
+        </div>
+        <div id="dem-words" class="row">
+        </div>
+      </div>
+    </div>
+
+    <!-- DC Charts -->
+    <div class="panel panel-default democrat">
+      <div class="panel-heading">
+        <h3 class="panel-title">DC Charts</h3>
+      </div>
+      <div class="panel-body">
+
+      </div>
+    </div>
+  </div>
+  <!-- ****************** Hillary ******************* -->
+
+  <!-- ****************** Trump ******************* -->
+  <div class="col-md-6 col-xs-12">
+    <!-- Bio -->
+    <div class="panel panel-default republican row">
+      <div class="panel-heading">
+        <h3 class="panel-title">Bio</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img src="assets/trump-portrait.jpg" alt="Donald Trump Portrait"
+                 class="img-responsive"/>
+          </div>
+          <div class="col-md-8 well">
+            <p>
+              Here is some info on The Donald!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Word Cloud -->
+    <div class="panel panel-default republican row">
+      <div class="panel-heading">
+        <h3 class="panel-title">Word Cloud</h3>
+      </div>
+      <div class="panel-body">
+        <div class="well row">
+          <p>
+            Describe word cloud, add key etc.
+          </p>
+        </div>
+        <div id="rep-words" class="row">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ****************** Trump ******************* -->
+
 </div>
