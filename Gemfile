@@ -9,6 +9,7 @@ gem 'rails', '5.0.0.1'
 gem 'puma'
 # Sprockets for the asset pipeline
 gem 'sprockets'
+# For use with Guard
 gem 'listen'
 
 # ANGULAR GEMS
@@ -24,6 +25,8 @@ gem 'sass-rails'
 gem 'font-awesome-rails'
 # Minifier
 gem 'uglifier'
+# Bootstrap, for ease of use
+gem 'bootstrap-sass', '~> 3.3.6'
 
 # JS/COFFEESCRIPT GEMS
 # --------------------

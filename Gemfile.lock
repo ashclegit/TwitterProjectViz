@@ -43,6 +43,11 @@ GEM
       sprockets (>= 3.0, < 5)
       tilt
     arel (7.1.1)
+    autoprefixer-rails (6.5.1)
+      execjs
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.2)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -160,6 +165,7 @@ PLATFORMS
 
 DEPENDENCIES
   angular-rails-templates
+  bootstrap-sass (~> 3.3.6)
   coffee-rails
   font-awesome-rails
   jbuilder

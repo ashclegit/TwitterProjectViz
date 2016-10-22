@@ -1,0 +1,26 @@
+@import "mixins";
+
+#banner {
+  height: 400px;
+
+  background-image: url("/assets/whitehouse.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  h1 {
+    font-size: 60px;
+    color: white;
+  }
+
+  h2 {
+    font-size: 35px;
+    color: white;
+  }
+
+  .jumbotron {
+    @include textShadow;
+    @include boxShadow;
+    background: rgba(230, 230, 230, 0.35);
+  }
+}

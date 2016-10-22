@@ -10,7 +10,7 @@
 //= require angular-aria
 //= require angular-rails-templates
 // BOOTSTRAP
-//= require bootstrap/dist/js/bootstrap
+//= require bootstrap
 // APP MODULES
 //= require app.module
 // EVERYTHING ELSE - Note that template engine works here
