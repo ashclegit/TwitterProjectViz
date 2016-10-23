@@ -13,10 +13,14 @@ angular.module("debate-visualization")
           boxWidth   = boxRect.width;
           boxHeight  = boxWidth;
 
-          pieRect = document.getElementById("pie-chart").getBoundingClientRect();
-          pieWidth = pieRect.width;
-          pieHeigt = pieWidth;
+          pieRect   = document.getElementById("pie-chart").getBoundingClientRect();
+          pieWidth  = pieRect.width;
+          pieHeigt  = pieWidth;
           pieRadius = pieWidth/4;
+
+          bubbleRect = document.getElementById("bubble-chart").getBoundingClientRect();
+          bubbleWidth = bubbleRect.width;
+          bubbleHeight = bubbleWidth/2;
 
           # Colors
           dem_blue = tinycolor("rgb(35,32,102");
@@ -27,30 +31,46 @@ angular.module("debate-visualization")
 
           scope.$watch('debate', (newVal, oldVal) ->
             if newVal == undefined || newVal == null then return;
+            console.log "Render!"
             chart = dc.boxPlot("#box-plot");
             pie = dc.pieChart("#pie-chart");
+            bubble = dc.bubbleChart("#bubble-chart");
 
-            scope.debate.forEach((d) ->
-              if d.sentiment >= 0
-                d['sentiment_code'] = 'positive';
-              else
-                d['sentiment_code'] = 'negative';
-            )
-
+            # Crossfilter
             words = crossfilter(scope.debate);
-            sentimentDimension = words.dimension( (d) -> return d.sentiment_code;)
-            sentimentDimensionCopy = words.dimension( (d) -> return d.sentiment_code;)
+
+            # Dimensions
+            sentimentDimension = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
+            sentimentDimensionCopy = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
+            wordDimension = words.dimension( (d) -> return d.text);
+
+            # Groups
             sentimentCount = sentimentDimensionCopy.group().reduceCount();
 
-            add = (p,v) ->
+            addSentiment = (p,v) ->
               p.push(v.sentiment);
               return p;
-            remove = (p,v) ->
+            removeSentiment = (p,v) ->
               p.splice(p.indexOf(v.sentiment), 1);
               return p;
-            init = () ->
+            initSentiment = () ->
               return [];
-            sentimentGroup = sentimentDimension.group().reduce(add,remove,init);
+            sentimentGroup = sentimentDimension.group().reduce(addSentiment, removeSentiment, initSentiment);
+
+            addWord = (p,v) ->
+              p.freq += v.size;
+              p.sentiment += v.sentiment;
+              return p;
+            removeWord = (p,v) ->
+              p.freq -= v.size;
+              p.sentiment -= v.sentiment;
+              return p;
+            initWord = () ->
+              return {
+                freq: 0,
+                sentiment: 0
+              };
+            wordGroup = wordDimension.group().reduce(addWord, removeWord, initWord);
 
             chart.width(boxWidth)
               .height(boxHeight)
@@ -69,6 +89,45 @@ angular.module("debate-visualization")
               .dimension(sentimentDimensionCopy)
               .group(sentimentCount)
               .colors(color_scale)
+              .label((d) -> return d.key + " [#{d.value}]";)
+
+            console.log wordGroup.all();
+
+            bubble.width(bubbleWidth)
+              .height(bubbleHeight)
+              .margins({top: 10, right: 30, bottom: 30, left: 35})
+              .dimension(wordDimension)
+              .group(wordGroup)
+              .colors(color_scale)
+              .colorAccessor((d) -> return if d.value.sentiment > 0 then 'positive' else 'negative')
+              .keyAccessor((d) -> return d.value.sentiment)
+              .valueAccessor((d) -> return d.value.freq)
+              .radiusValueAccessor((d) -> return d.value.freq)
+              .maxBubbleRelativeSize(0.05)
+              .x(d3.scale.linear().domain([-1, 1]))
+              .y(d3.scale.linear().domain([0, 100]))
+              .r(d3.scale.linear().domain([0,100]))
+              .elasticY(true)
+              .elasticX(true)
+              .elasticRadius(true)
+              .renderHorizontalGridLines(true)
+              .renderVerticalGridLines(true)
+              .yAxisPadding(20)
+              .xAxisPadding(0.25)
+              .xAxisLabel('Sentiment Value')
+              .yAxisLabel('Requency')
+              .renderLabel(true)
+              .label( (d) ->
+                return d.key;
+              )
+              .renderTitle(true)
+              .title( (d) ->
+                  return [
+                      d.key,
+                      "Sentiment Score: #{d.value.sentiment}",
+                      "Frequency #{d.value.freq}"
+                  ].join('\n');
+              );
 
             dc.renderAll();
           );
