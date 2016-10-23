@@ -15,6 +15,10 @@
 //= require d3
 //= require d3-dispatch/src/dispatch
 //= require d3-cloud
+//= require tinycolor
+// DC JS
+//= require crossfilter
+//= require dcjs/dc
 // APP MODULES
 //= require app.module
 // EVERYTHING ELSE - Note that template engine works here

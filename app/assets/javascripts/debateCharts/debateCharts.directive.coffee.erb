@@ -1,0 +1,76 @@
+angular.module("debate-visualization")
+  .directive("debateCharts", () ->
+    return {
+        restrict: 'E',
+        templateUrl: "<%= asset_path 'debateCharts/layout/layout.html' %>",
+        scope: {
+          debate: '='
+        },
+
+        link: (scope, element, attrs) ->
+          # Positioning
+          boxRect    = document.getElementById("box-plot").getBoundingClientRect();
+          boxWidth   = boxRect.width;
+          boxHeight  = boxWidth;
+
+          pieRect = document.getElementById("pie-chart").getBoundingClientRect();
+          pieWidth = pieRect.width;
+          pieHeigt = pieWidth;
+          pieRadius = pieWidth/4;
+
+          # Colors
+          dem_blue = tinycolor("rgb(35,32,102");
+          rep_red = tinycolor("rgb(233,29,14)");
+          color_scale = d3.scale.ordinal()
+            .domain(['positive', 'negative'])
+            .range([dem_blue.toHexString(), rep_red.toHexString()])
+
+          scope.$watch('debate', (newVal, oldVal) ->
+            if newVal == undefined || newVal == null then return;
+            chart = dc.boxPlot("#box-plot");
+            pie = dc.pieChart("#pie-chart");
+
+            scope.debate.forEach((d) ->
+              if d.sentiment >= 0
+                d['sentiment_code'] = 'positive';
+              else
+                d['sentiment_code'] = 'negative';
+            )
+
+            words = crossfilter(scope.debate);
+            sentimentDimension = words.dimension( (d) -> return d.sentiment_code;)
+            sentimentDimensionCopy = words.dimension( (d) -> return d.sentiment_code;)
+            sentimentCount = sentimentDimensionCopy.group().reduceCount();
+
+            add = (p,v) ->
+              p.push(v.sentiment);
+              return p;
+            remove = (p,v) ->
+              p.splice(p.indexOf(v.sentiment), 1);
+              return p;
+            init = () ->
+              return [];
+            sentimentGroup = sentimentDimension.group().reduce(add,remove,init);
+
+            chart.width(boxWidth)
+              .height(boxHeight)
+              .margins({top: 20, right: 30, bottom: 30, left: 35})
+              .dimension(sentimentDimension)
+              .group(sentimentGroup)
+              .y(d3.scale.linear().domain([-1, 1]))
+              .elasticX(true)
+              .colors(color_scale)
+              .xAxisLabel("Overall Sentiment")
+              .yAxisLabel("Sentiment Intensity")
+
+            pie.width(pieWidth)
+              .height(pieHeigt)
+              .radius(pieRadius)
+              .dimension(sentimentDimensionCopy)
+              .group(sentimentCount)
+              .colors(color_scale)
+
+            dc.renderAll();
+          );
+    };  # return
+  );

@@ -4,7 +4,8 @@ angular.module("debate-visualization")
         restrict: 'E',
         templateUrl: "<%= asset_path 'wordcloud/layout/layout.html' %>",
         scope: {
-          words: '='
+          words: '=',
+          color: '='
         },
 
         link: (scope, element, attrs) ->
@@ -37,7 +38,7 @@ angular.module("debate-visualization")
               .enter().append("text")
                 .style("font-size", (d) -> return d.size + "px";)
                 .style("font-family", "Impact")
-                .style("fill", (d, i) -> return '#445566';)
+                .style("fill", (d, i) -> return scope.color.toHexString();)
                 .attr("text-anchor", "middle")
                 .attr("transform", (d) ->
                   return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
