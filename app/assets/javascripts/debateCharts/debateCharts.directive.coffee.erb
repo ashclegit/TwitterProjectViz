@@ -29,9 +29,10 @@ angular.module("debate-visualization")
             .domain(['positive', 'negative'])
             .range([dem_blue.toHexString(), rep_red.toHexString()])
 
+          # Only render once data is populated
           scope.$watch('debate', (newVal, oldVal) ->
             if newVal == undefined || newVal == null then return;
-            console.log "Render!"
+            # Charts
             chart = dc.boxPlot("#box-plot");
             pie = dc.pieChart("#pie-chart");
             bubble = dc.bubbleChart("#bubble-chart");
@@ -90,8 +91,6 @@ angular.module("debate-visualization")
               .group(sentimentCount)
               .colors(color_scale)
               .label((d) -> return d.key + " [#{d.value}]";)
-
-            console.log wordGroup.all();
 
             bubble.width(bubbleWidth)
               .height(bubbleHeight)
