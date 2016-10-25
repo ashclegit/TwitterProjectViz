@@ -13,18 +13,18 @@ angular.module("debate-visualization")
           row = $(element.children()[0])
 
           # Positioning
-          boxDom     = row.children(".box-plot")[0];
+          boxDom     = row.find(".box-plot")[0];
           boxRect    = boxDom.getBoundingClientRect();
           boxWidth   = boxRect.width;
           boxHeight  = boxWidth;
 
-          pieDom    = row.children(".pie-chart")[0];
+          pieDom    = row.find(".pie-chart")[0];
           pieRect   = pieDom.getBoundingClientRect();
           pieWidth  = pieRect.width;
           pieHeigt  = pieWidth;
           pieRadius = pieWidth/4;
 
-          bubbleDom     = row.children(".bubble-chart")[0];
+          bubbleDom     = row.find(".bubble-chart")[0];
           bubbleRect    = bubbleDom.getBoundingClientRect();
           bubbleWidth   = bubbleRect.width;
           bubbleHeight  = bubbleWidth/2;
