@@ -12,14 +12,20 @@ div {
   }
   &.jumbotron {
     margin-bottom: 0;
+    &.notice {
+      margin-bottom: 15px;
+    }
   }
 }
 
 div.panel-default {
+  @include boxShadow;
+
   div.panel-body {
     img {
       @include boxShadow;
       max-height: 200px;
+      margin-bottom: 15px;
     }
   }
 
@@ -29,6 +35,10 @@ div.panel-default {
       color: white;
       background-color: $democrat_blue;
     }
+
+    .list-group-item {
+      border: 1px solid $democrat_blue;
+    }
   }
 
   &.republican {
@@ -36,6 +46,10 @@ div.panel-default {
     div.panel-heading {
       color: white;
       background-color: $republican_red;
+    }
+
+    .list-group-item {
+      border: 1px solid $republican_red;;
     }
   }
 }

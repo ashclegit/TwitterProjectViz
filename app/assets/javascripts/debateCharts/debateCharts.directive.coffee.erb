@@ -8,19 +8,24 @@ angular.module("debate-visualization")
         },
 
         link: (scope, element, attrs) ->
+          row = $(element.children()[0])
+
           # Positioning
-          boxRect    = document.getElementById("box-plot").getBoundingClientRect();
+          boxDom     = row.children(".box-plot")[0];
+          boxRect    = boxDom.getBoundingClientRect();
           boxWidth   = boxRect.width;
           boxHeight  = boxWidth;
 
-          pieRect   = document.getElementById("pie-chart").getBoundingClientRect();
+          pieDom    = row.children(".pie-chart")[0];
+          pieRect   = pieDom.getBoundingClientRect();
           pieWidth  = pieRect.width;
           pieHeigt  = pieWidth;
           pieRadius = pieWidth/4;
 
-          bubbleRect = document.getElementById("bubble-chart").getBoundingClientRect();
-          bubbleWidth = bubbleRect.width;
-          bubbleHeight = bubbleWidth/2;
+          bubbleDom     = row.children(".bubble-chart")[0];
+          bubbleRect    = bubbleDom.getBoundingClientRect();
+          bubbleWidth   = bubbleRect.width;
+          bubbleHeight  = bubbleWidth/2;
 
           # Colors
           dem_blue = tinycolor("rgb(35,32,102");
@@ -33,17 +38,17 @@ angular.module("debate-visualization")
           scope.$watch('debate', (newVal, oldVal) ->
             if newVal == undefined || newVal == null then return;
             # Charts
-            chart = dc.boxPlot("#box-plot");
-            pie = dc.pieChart("#pie-chart");
-            bubble = dc.bubbleChart("#bubble-chart");
+            chart   = dc.boxPlot(boxDom);
+            pie     = dc.pieChart(pieDom);
+            bubble  = dc.bubbleChart(bubbleDom);
 
             # Crossfilter
             words = crossfilter(scope.debate);
 
             # Dimensions
-            sentimentDimension = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
-            sentimentDimensionCopy = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
-            wordDimension = words.dimension( (d) -> return d.text);
+            sentimentDimension      = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
+            sentimentDimensionCopy  = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
+            wordDimension           = words.dimension( (d) -> return d.text);
 
             # Groups
             sentimentCount = sentimentDimensionCopy.group().reduceCount();

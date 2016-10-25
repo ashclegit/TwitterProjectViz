@@ -3,13 +3,30 @@
 
 <!-- Content -->
 <div class="row">
-  
-  <!-- ****************** Hillary ******************* -->
+
+  <!-- ****************** Hillary Bio ******************* -->
+  <div class="col-md-6 col-xs-12">
+    <ng-include src="appCtrl.hillary_bio"></ng-include>
+  </div>
+
+  <!-- ****************** Trump Bio ******************* -->
+  <div class="col-md-6 col-xs-12">
+    <ng-include src="appCtrl.trump_bio"></ng-include>
+  </div>
+
+  <!-- ****************** Announcement ******************* -->
+  <div class="jumbotron notice col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+    <p>
+      Describe the following charts
+    </p>
+  </div>
+
+  <!-- ****************** Hillary Charts ******************* -->
   <div class="col-md-6 col-xs-12">
     <ng-include src="appCtrl.hillary_content"></ng-include>
   </div>
 
-  <!-- ****************** Trump ******************* -->
+  <!-- ****************** Trump Charts ******************* -->
   <div class="col-md-6 col-xs-12">
     <ng-include src="appCtrl.trump_content"></ng-include>
   </div>
