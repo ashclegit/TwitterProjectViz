@@ -1,6 +1,8 @@
 // Colors and Mixins
 $democrat_blue: rgb(35,32,102);
+$democrat_lighter: rgb(66, 134, 244);
 $republican_red: rgb(233,29,14);
+$republican_lighter: rgb(255, 126, 114);
 
 @mixin textShadow {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);

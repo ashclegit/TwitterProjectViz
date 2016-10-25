@@ -1,4 +1,4 @@
-Rails + Angular + Material Template App
+2016 US Election - Debate Visualizations
 ===
-This is a Rails 5 app, built for interfacing with an Angular 1.5+ application.
-Also has Angular Material support.
+This is the visualization site created for our Data Science project.
+Semantic analysis of tweets collected during the 2016 Presidential Debates.

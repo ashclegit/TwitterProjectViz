@@ -15,6 +15,9 @@ div {
     &.notice {
       margin-bottom: 15px;
     }
+    p {
+      font-size: 16px;
+    }
   }
 }
 
@@ -26,6 +29,26 @@ div.panel-default {
       @include boxShadow;
       max-height: 200px;
       margin-bottom: 15px;
+    }
+  }
+
+  .list-group-item-heading {
+    font-weight: bold;
+  }
+
+  .btn.btn-democrat {
+    background-color: $democrat_blue;
+    color: whitesmoke;
+    &:hover {
+      background-color: $democrat_lighter;
+    }
+  }
+
+  .btn.btn-republican {
+    background-color: $republican_red;
+    color: whitesmoke;
+    &:hover {
+      background-color: $republican_lighter;
     }
   }
 
