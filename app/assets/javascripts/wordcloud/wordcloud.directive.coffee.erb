@@ -5,7 +5,8 @@ angular.module("debate-visualization")
         templateUrl: "<%= asset_path 'wordcloud/layout/layout.html' %>",
         scope: {
           words: '=',
-          color: '='
+          posColor: '=',
+          negColor: "="
         },
 
         link: (scope, element, attrs) ->
@@ -16,6 +17,24 @@ angular.module("debate-visualization")
 
           scope.$watch('words', (newVal, oldVal) ->
             if newVal == undefined || newVal == null then return;
+
+            # Colors
+            posColor = scope.posColor.toHexString();
+            posColorLight = scope.posColor.clone().lighten(50).toHexString();
+            negColor = scope.negColor.toHexString();
+            negColorLight = scope.negColor.clone().lighten(50).toHexString();
+
+            # Linear interpolation for wordcloud
+            color_scale_pos = d3.scale.linear()
+              .domain([0,1])
+              .range([posColorLight, posColor]);
+
+            color_scale_neg = d3.scale.linear()
+              .domain([0,-1])
+              .range([negColorLight, negColor]);
+
+            #TODO: Font scale - Implement when we have real data
+            # !!!
 
             # Layout definition
             layout = d3.layout.cloud()
@@ -38,7 +57,9 @@ angular.module("debate-visualization")
               .enter().append("text")
                 .style("font-size", (d) -> return d.size + "px";)
                 .style("font-family", "Impact")
-                .style("fill", (d, i) -> return scope.color.toHexString();)
+                .style("fill", (d, i) ->
+                  return if d.sentiment > 0 then color_scale_pos(d.sentiment) else color_scale_neg(d.sentiment);
+                )
                 .attr("text-anchor", "middle")
                 .attr("transform", (d) ->
                   return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";

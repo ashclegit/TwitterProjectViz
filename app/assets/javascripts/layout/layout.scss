@@ -32,6 +32,10 @@ div.panel-default {
     }
   }
 
+  .list-group {
+    margin-bottom: 0px;
+  }
+
   .list-group-item-heading {
     font-weight: bold;
   }
@@ -49,6 +53,17 @@ div.panel-default {
     color: whitesmoke;
     &:hover {
       background-color: $republican_lighter;
+    }
+  }
+
+  mark {
+    &.blue {
+      background-color: $democrat_blue;
+      color: whitesmoke;
+    }
+    &.red {
+      background-color: $republican_red;
+      color: whitesmoke;
     }
   }
 

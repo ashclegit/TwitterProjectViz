@@ -4,7 +4,9 @@ angular.module("debate-visualization")
         restrict: 'E',
         templateUrl: "<%= asset_path 'debateCharts/layout/layout.html' %>",
         scope: {
-          debate: '='
+          debate: '=',
+          posColor: '=',
+          negColor: '='
         },
 
         link: (scope, element, attrs) ->
@@ -28,11 +30,15 @@ angular.module("debate-visualization")
           bubbleHeight  = bubbleWidth/2;
 
           # Colors
-          dem_blue = tinycolor("rgb(35,32,102");
-          rep_red = tinycolor("rgb(233,29,14)");
-          color_scale = d3.scale.ordinal()
+          posColor = scope.posColor.toHexString();
+          posColorLight = scope.posColor.clone().lighten(50).toHexString();
+          negColor = scope.negColor.toHexString();
+          negColorLight = scope.negColor.clone().lighten(50).toHexString();
+
+          # Ordinal scale for charts
+          color_scale_ord = d3.scale.ordinal()
             .domain(['positive', 'negative'])
-            .range([dem_blue.toHexString(), rep_red.toHexString()])
+            .range([posColor, negColor]);
 
           # Only render once data is populated
           scope.$watch('debate', (newVal, oldVal) ->
@@ -85,7 +91,7 @@ angular.module("debate-visualization")
               .group(sentimentGroup)
               .y(d3.scale.linear().domain([-1, 1]))
               .elasticX(true)
-              .colors(color_scale)
+              .colors(color_scale_ord)
               .xAxisLabel("Overall Sentiment")
               .yAxisLabel("Sentiment Intensity")
 
@@ -94,7 +100,7 @@ angular.module("debate-visualization")
               .radius(pieRadius)
               .dimension(sentimentDimensionCopy)
               .group(sentimentCount)
-              .colors(color_scale)
+              .colors(color_scale_ord)
               .label((d) -> return d.key + " [#{d.value}]";)
 
             bubble.width(bubbleWidth)
@@ -102,7 +108,7 @@ angular.module("debate-visualization")
               .margins({top: 10, right: 30, bottom: 30, left: 35})
               .dimension(wordDimension)
               .group(wordGroup)
-              .colors(color_scale)
+              .colors(color_scale_ord)
               .colorAccessor((d) -> return if d.value.sentiment > 0 then 'positive' else 'negative')
               .keyAccessor((d) -> return d.value.sentiment)
               .valueAccessor((d) -> return d.value.freq)
