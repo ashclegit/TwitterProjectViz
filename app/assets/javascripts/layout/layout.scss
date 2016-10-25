@@ -1,8 +1,10 @@
 @import "mixins";
 
 body {
-  background-image: asset_url("paper.jpg");
-  background-size: cover;
+  background-image: asset_url("stars.jpg");
+  background-size: contain;
+  background-repeat: repeat;
+  background-attachment: fixed;
 }
 
 div {
