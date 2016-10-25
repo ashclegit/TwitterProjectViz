@@ -13,6 +13,8 @@ div {
   &.jumbotron {
     margin-bottom: 0;
     &.notice {
+      @include boxShadow;
+      margin-top: 15px;
       margin-bottom: 15px;
     }
     p {
@@ -63,6 +65,14 @@ div.panel-default {
     }
     &.red {
       background-color: $republican_red;
+      color: whitesmoke;
+    }
+    &.pos {
+      background-color: rgb(32, 175, 0);
+      color: whitesmoke;
+    }
+    &.neg {
+      background-color: rgb(232, 116, 0);
       color: whitesmoke;
     }
   }
