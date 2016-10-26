@@ -1,6 +1,7 @@
 angular.module('debate-visualization', [
   'ui.router',
-  'templates'
+  'templates',
+  'ngtweet'
   ])
   .run(['$rootScope', '$state', '$stateParams', '$log',
     ($rootScope, $state, $stateParams, $log) ->

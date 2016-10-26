@@ -60,6 +60,10 @@ div.panel-default {
     }
   }
 
+  .carousel {
+    max-height: 200px;
+  }
+
   mark {
     &.blue {
       background-color: $democrat_blue;

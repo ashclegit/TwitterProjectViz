@@ -1,6 +1,6 @@
 angular.module('debate-visualization')
-  .controller('appController', ['$http',
-    ($http) ->
+  .controller('appController', ['$scope','$http',
+    ($scope, $http) ->
       self = this;
       $http.get("<%= asset_path 'wordcloud/data/hillary-wc.json' %>").then( (response) ->
         self.hillary_words = response.data.map((d) ->
@@ -17,9 +17,11 @@ angular.module('debate-visualization')
       self.negative = tinycolor("rgb(232, 116, 0)");
 
       self.hillary_bio = "<%= asset_path 'layout/hillary/bio.html' %>";
+      self.hillary_tweets = ['617749885933232128'];
       self.hillary_content = "<%= asset_path 'layout/hillary/content.html' %>";
 
       self.trump_bio = "<%= asset_path 'layout/trump/bio.html' %>";
+      self.trump_tweets = ['617749885933232128'];
       self.trump_content = "<%= asset_path 'layout/trump/content.html' %>";
 
       return;

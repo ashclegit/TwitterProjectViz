@@ -1,0 +1,22 @@
+<!-- Tweets -->
+<div ng-attr-id="{{twitterCarousel.inputId}}-carousel" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item" ng-class="{active: $first}" ng-repeat="tweet in twitterCarousel.tweets">
+      <twitter-widget twitter-widget-id="tweet"
+                      twitter-widget-options="{'cards': 'hidden', 'align': 'center', 'dnt': 'true'}">
+      </twitter-widget>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control vertical-center horizontal-center"
+      href="#{{twitterCarousel.inputId}}-carousel" role="button" data-slide="prev">
+    <span class="fa fa-arrow-circle-left"></span>
+  </a>
+  <a class="right carousel-control vertical-center horizontal-center"
+      href="#{{twitterCarousel.inputId}}-carousel" role="button" data-slide="next">
+    <span class="fa fa-arrow-circle-right"></span>
+  </a>
+
+</div>

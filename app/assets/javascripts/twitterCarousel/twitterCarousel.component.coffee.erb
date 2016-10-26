@@ -1,0 +1,12 @@
+TwitterCarouselController = () ->
+  return;
+
+angular.module('debate-visualization').component('twitterCarousel', {
+  templateUrl: "<%= asset_path 'twitterCarousel/layout/layout.html' %>",
+  controller: TwitterCarouselController,
+  controllerAs: 'twitterCarousel',
+  bindings: {
+    tweets: '=',
+    inputId: '@'
+  }
+});

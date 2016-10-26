@@ -9,6 +9,7 @@
 //= require angular-ui-router
 //= require angular-aria
 //= require angular-rails-templates
+//= require ngtweet
 // BOOTSTRAP
 //= require bootstrap
 // D3
