@@ -1,6 +1,6 @@
 <!-- Banner -->
-<div class="row">
-  <div id="banner" class="col-md-12 vertical-center horizontal-center">
+<div id="banner" class="row">
+  <div class="col-md-12 horizontal-center">
     <div class="text-center jumbotron">
       <h1>Decision 2016</h1>
       <h2>Semantic Analysis of Tweets</h2>
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="row">
+<div id="more-info" class="row collapse">
   <!-- ****************** Announcement ******************* -->
   <div class="jumbotron notice col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
     <p>
@@ -31,12 +31,18 @@
       attempt to understand the national conversation and strong emotions behind this historic election!
     </p>
     <small>*For more information, a link to our research paper and methodologies can be found above</small>
-  </div>  
+  </div>
 </div>
 
 <!-- Header Bar -->
 <div id="header-wrapper">
-  <div id="header-bar" class="row" data-offset-top="200">
+  <button id="info-button"
+          class="btn btn-default"
+          href="#more-info"
+          data-toggle="collapse">
+    <span class="fa fa-question-circle"></span>
+  </button>
+  <div id="header-bar" class="row">
     <div class="col-md-6 col-xs-12 democrat text-center">
       <h2>Hillary Clinton</h2>
     </div>

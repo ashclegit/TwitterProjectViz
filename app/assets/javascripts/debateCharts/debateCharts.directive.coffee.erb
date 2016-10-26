@@ -140,6 +140,7 @@ angular.module("debate-visualization")
               );
 
             dc.renderAll();
+            scope.$emit("render-done", element);
           );
     };  # return
   );

@@ -2,7 +2,7 @@
 
 #banner {
   @include boxShadow;
-  height: 400px;
+  height: 350px;
 
   background-image: asset-url("whitehouse.jpeg");
   background-size: cover;
@@ -19,16 +19,27 @@
     color: white;
   }
 
-  .jumbotron {
+  div.jumbotron {
     @include textShadow;
     @include boxShadow;
     background: rgba(230, 230, 230, 0.35);
+    margin-top: -5px;
   }
 }
 
 #header-wrapper {
   min-height:50px;
   margin-bottom: 15px;
+  position: relative;
+
+  #info-button {
+    position: absolute;
+    width: 100px;
+    margin-left: -50px;
+    top: -25%;
+    left: 50%;
+    z-index: 10;
+  }
 
   #header-bar {
     div {

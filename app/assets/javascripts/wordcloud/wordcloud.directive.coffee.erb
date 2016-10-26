@@ -65,6 +65,7 @@ angular.module("debate-visualization")
                   return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 )
                 .text( (d) -> return d.text;);
+              scope.$emit("render-done", element);
 
             # Start layout and render
             layout.on("end", draw);

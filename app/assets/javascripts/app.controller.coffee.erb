@@ -24,9 +24,9 @@ angular.module('debate-visualization')
       self.trump_tweets = ['617749885933232128'];
       self.trump_content = "<%= asset_path 'layout/trump/content.html' %>";
 
-      $scope.$on("collapse", (event, id) ->
-        alert(id)
-      )
+      $scope.$on("render-done", (event, element) ->
+        element.closest(".collapse").collapse();
+      );
 
       return;
   ]);

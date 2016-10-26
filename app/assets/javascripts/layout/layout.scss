@@ -36,6 +36,12 @@ div.panel-default {
     }
   }
 
+  div.panel-heading {
+    &[data-toggle="collapse"] {
+      cursor: pointer;
+    }
+  }
+
   .list-group {
     margin-bottom: 0px;
   }
