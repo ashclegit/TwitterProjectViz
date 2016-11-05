@@ -52,30 +52,30 @@ angular.module("debate-visualization")
             words = crossfilter(scope.debate);
 
             # Dimensions
-            sentimentDimension      = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
-            sentimentDimensionCopy  = words.dimension( (d) -> return if d.sentiment > 0 then 'positive' else 'negative');
+            sentimentDimension      = words.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
+            sentimentDimensionCopy  = words.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
             wordDimension           = words.dimension( (d) -> return d.text);
 
             # Groups
             sentimentCount = sentimentDimensionCopy.group().reduceCount();
 
             addSentiment = (p,v) ->
-              p.push(v.sentiment);
+              p.push(v.average_sentiment);
               return p;
             removeSentiment = (p,v) ->
-              p.splice(p.indexOf(v.sentiment), 1);
+              p.splice(p.indexOf(v.average_sentiment), 1);
               return p;
             initSentiment = () ->
               return [];
             sentimentGroup = sentimentDimension.group().reduce(addSentiment, removeSentiment, initSentiment);
 
             addWord = (p,v) ->
-              p.freq += v.size;
-              p.sentiment += v.sentiment;
+              p.freq += v.count;
+              p.sentiment += v.average_sentiment;
               return p;
             removeWord = (p,v) ->
-              p.freq -= v.size;
-              p.sentiment -= v.sentiment;
+              p.freq -= v.count;
+              p.sentiment -= v.average_sentiment;
               return p;
             initWord = () ->
               return {

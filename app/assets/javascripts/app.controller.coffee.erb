@@ -2,13 +2,23 @@ angular.module('debate-visualization')
   .controller('appController', ['$scope','$http',
     ($scope, $http) ->
       self = this;
-      $http.get("<%= asset_path 'wordcloud/data/hillary-wc.json' %>").then( (response) ->
-        self.hillary_words = response.data.map((d) ->
-          {text: d.word, size: 10 + Math.random() * 90, sentiment: Math.random()*2 - 1});
+      $http.get("<%= asset_path 'data/analysis_hillary.json' %>").then( (response) ->
+        json = response.data;
+        words = Object.keys(json).map( (d) ->
+          summary = json[d]
+          summary["text"] = d
+          return summary
+        );
+        self.hillary_words = words
       );
-      $http.get("<%= asset_path 'wordcloud/data/trump-wc.json' %>").then( (response) ->
-        self.trump_words = response.data.map((d) ->
-          {text: d.word, size: Math.floor(Math.random() * 100), sentiment: Math.random()*2 - 1});
+      $http.get("<%= asset_path 'data/analysis_trump.json' %>").then( (response) ->
+        json = response.data;
+        words = Object.keys(json).map( (d) ->
+          summary = json[d]
+          summary["text"] = d
+          return summary
+        );
+        self.trump_words = words;
       );
 
       self.dem_blue = tinycolor("rgb(35,32,102");
