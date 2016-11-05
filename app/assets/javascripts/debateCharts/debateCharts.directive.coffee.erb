@@ -1,18 +1,34 @@
+DebateController = ($scope) ->
+  self = this;
+  self.words = $scope.words;
+
+  self.filterWord = (newWord) ->
+    if newWord
+      $scope.wordDetailDimentionCopy.filterExact(newWord);
+    else
+      $scope.wordDetailDimentionCopy.filterExact("");
+    dc.renderAll("detail")
+    return
+
+  return
+
 angular.module("debate-visualization")
   .directive("debateCharts", () ->
     return {
         restrict: 'E',
         templateUrl: "<%= asset_path 'debateCharts/layout/layout.html' %>",
         scope: {
-          debate: '=',
+          words: '=',
           posColor: '=',
           negColor: '='
         },
+        controller: DebateController,
+        controllerAs: "debateCtrl",
 
         link: (scope, element, attrs) ->
           row = $(element.children()[0])
 
-          # Positioning
+          # Overview
           boxDom     = row.find(".box-plot")[0];
           boxRect    = boxDom.getBoundingClientRect();
           boxWidth   = boxRect.width;
@@ -29,6 +45,12 @@ angular.module("debate-visualization")
           bubbleWidth   = bubbleRect.width;
           bubbleHeight  = bubbleWidth/2;
 
+          # Detail
+          detailBoxDom = row.find(".detail-box-plot")[0];
+          detailBoxRect = detailBoxDom.getBoundingClientRect();
+          detailBoxWidth = detailBoxRect.width;
+          detailBoxHeight = detailBoxWidth;
+
           # Colors
           posColor = scope.posColor.toHexString();
           posColorLight = scope.posColor.clone().lighten(50).toHexString();
@@ -41,20 +63,30 @@ angular.module("debate-visualization")
             .range([posColor, negColor]);
 
           # Only render once data is populated
-          scope.$watch('debate', (newVal, oldVal) ->
+          scope.$watch('words', (newVal, oldVal) ->
             if newVal == undefined || newVal == null then return;
             # Charts
-            chart   = dc.boxPlot(boxDom);
-            pie     = dc.pieChart(pieDom);
-            bubble  = dc.bubbleChart(bubbleDom);
+            chart   = dc.boxPlot(boxDom, "overview");
+            pie     = dc.pieChart(pieDom, "overview");
+            bubble  = dc.bubbleChart(bubbleDom, "overview");
 
-            # Crossfilter
-            words = crossfilter(scope.debate);
+            detailBox = dc.boxPlot(detailBoxDom, "detail");
+
+            # Crossfilter for overview
+            cf_overview = crossfilter(scope.words);
+
+            # Crossfilter for details
+            cf_detail = crossfilter(scope.words);
 
             # Dimensions
-            sentimentDimension      = words.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
-            sentimentDimensionCopy  = words.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
-            wordDimension           = words.dimension( (d) -> return d.text);
+            sentimentDimension      = cf_overview.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
+            sentimentDimensionCopy  = cf_overview.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
+            wordDimension           = cf_overview.dimension( (d) -> return d.text);
+
+            wordDetailDimention     = cf_detail.dimension( (d) -> return d.text);
+            wordDetailDimentionCopy = cf_detail.dimension( (d) -> return d.text).filterExact("");
+
+            scope.wordDetailDimentionCopy = wordDetailDimentionCopy;
 
             # Groups
             sentimentCount = sentimentDimensionCopy.group().reduceCount();
@@ -70,19 +102,33 @@ angular.module("debate-visualization")
             sentimentGroup = sentimentDimension.group().reduce(addSentiment, removeSentiment, initSentiment);
 
             addWord = (p,v) ->
-              p.freq += v.count;
+              p.count += v.count;
               p.sentiment += v.average_sentiment;
+              p.variance += v.sentiment_variance;
               return p;
             removeWord = (p,v) ->
-              p.freq -= v.count;
+              p.count -= v.count;
               p.sentiment -= v.average_sentiment;
+              p.variance -= v.sentiment_variance;
               return p;
             initWord = () ->
               return {
-                freq: 0,
-                sentiment: 0
+                count: 0,
+                sentiment: 0,
+                variance: 0
               };
             wordGroup = wordDimension.group().reduce(addWord, removeWord, initWord);
+
+            addWordDetail = (p,v) ->
+              console.log "New word detail!"
+              p = v.ratings
+              return p;
+            removeWordDetail = (p,v) ->
+              p = []
+              return p;
+            initWordDetail = () ->
+              return [];
+            wordDetailGroup = wordDetailDimention.group().reduce(addWordDetail, removeWordDetail, initWordDetail)
 
             chart.width(boxWidth)
               .height(boxHeight)
@@ -95,6 +141,20 @@ angular.module("debate-visualization")
               .xAxisLabel("Overall Sentiment")
               .yAxisLabel("Sentiment Intensity")
 
+            detailBox.width(detailBoxWidth)
+              .height(detailBoxHeight)
+              .margins({top: 20, right: 30, bottom: 30, left: 35})
+              .dimension(wordDetailDimention)
+              .group(wordDetailGroup)
+              .y(d3.scale.linear().domain([-1, 1]))
+              .elasticX(true)
+              .colors(color_scale_ord)
+              .colorAccessor( (d) ->
+                word = scope.words.filter((e) -> return d.key == e.text)[0];
+                return if word.average_sentiment > 0 then 'positive' else 'negative';
+              )
+              .yAxisLabel("Sentiment Intensity")
+
             pie.width(pieWidth)
               .height(pieHeigt)
               .radius(pieRadius)
@@ -102,6 +162,9 @@ angular.module("debate-visualization")
               .group(sentimentCount)
               .colors(color_scale_ord)
               .label((d) -> return d.key + " [#{d.value}]";)
+
+            # Get min and max variance for y-axis scale
+            max_var = d3.max(scope.words, (d) -> return d.sentiment_variance);
 
             bubble.width(bubbleWidth)
               .height(bubbleHeight)
@@ -111,21 +174,21 @@ angular.module("debate-visualization")
               .colors(color_scale_ord)
               .colorAccessor((d) -> return if d.value.sentiment > 0 then 'positive' else 'negative')
               .keyAccessor((d) -> return d.value.sentiment)
-              .valueAccessor((d) -> return d.value.freq)
-              .radiusValueAccessor((d) -> return d.value.freq)
+              .valueAccessor((d) -> return d.value.variance)
+              .radiusValueAccessor((d) -> return d.value.count)
               .maxBubbleRelativeSize(0.05)
               .x(d3.scale.linear().domain([-1, 1]))
-              .y(d3.scale.linear().domain([0, 100]))
+              .y(d3.scale.linear().domain([0, max_var]))
               .r(d3.scale.linear().domain([0,100]))
               .elasticY(true)
               .elasticX(true)
               .elasticRadius(true)
               .renderHorizontalGridLines(true)
               .renderVerticalGridLines(true)
-              .yAxisPadding(20)
+              .yAxisPadding(0.1)
               .xAxisPadding(0.25)
               .xAxisLabel('Sentiment Value')
-              .yAxisLabel('Frequency')
+              .yAxisLabel('Sentiment Variance')
               .renderLabel(true)
               .label( (d) ->
                 return d.key;
@@ -135,11 +198,13 @@ angular.module("debate-visualization")
                   return [
                       d.key,
                       "Sentiment Score: #{d.value.sentiment}",
-                      "Frequency #{d.value.freq}"
+                      "Sentiment Variance: #{d.value.variance}",
+                      "Frequency: #{d.value.count}"
                   ].join('\n');
               );
 
-            dc.renderAll();
+            dc.renderAll("overview");
+            dc.renderAll("detail");
             scope.$emit("render-done", element);
           );
     };  # return

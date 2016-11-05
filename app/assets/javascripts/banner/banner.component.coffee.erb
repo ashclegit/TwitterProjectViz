@@ -1,3 +1,9 @@
+BannerController = () ->
+  self = this;
+  return
+
 angular.module('debate-visualization').component('banner', {
-  templateUrl: "<%= asset_path 'banner/layout/layout.html' %>"
+  templateUrl: "<%= asset_path 'banner/layout/layout.html' %>",
+  controller: BannerController,
+  controllerAs: "bannerCtrl"
 });

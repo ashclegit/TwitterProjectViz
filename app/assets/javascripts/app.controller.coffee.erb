@@ -38,5 +38,17 @@ angular.module('debate-visualization')
         element.closest(".collapse").collapse();
       );
 
+      self.collapsed = true;
+
+      self.toggleAll = () ->
+        $(".panel-collapse").each( () ->
+          if self.collapsed
+            $(this).collapse("show");
+          else
+            $(this).collapse("hide");
+        );
+        self.collapsed = !self.collapsed;
+        return;
+
       return;
   ]);

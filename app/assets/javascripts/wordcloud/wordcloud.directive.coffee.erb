@@ -37,8 +37,6 @@ angular.module("debate-visualization")
             max_count = d3.max(scope.words, (d) -> return d.count; )
             min_count = d3.min(scope.words, (d) -> return d.count; )
 
-            console.log scope.words
-
             font_scale = d3.scale.linear()
               .domain([min_count, max_count])
               .range([20,70]);

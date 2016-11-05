@@ -1,4 +1,12 @@
 .chart-title {
   font-weight: bold;
   font-size: 15px;
+  small {
+    font-weight: normal;
+    font-size: 10px;
+  }
+}
+
+.grid-line.horizontal {
+  fill: red;
 }

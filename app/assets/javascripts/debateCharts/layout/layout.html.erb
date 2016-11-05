@@ -1,21 +1,81 @@
 <div class="row">
 
   <div class="col-md-6 col-xs-12 text-center">
-    <span class="chart-title">Sentiment Intensity</span>
+    <span class="chart-title">
+      Average Sentiment Intensity
+    </br>
+      <small>
+        This chart takes the avergae sentiment for each keyword and plots the
+        distribution for the entire set. Includes the overall average as well as quartiles.
+      </small>
+    </span>
     <div class="visual-container horizontal-center row box-plot">
     </div>
   </div>
 
   <div class="col-md-6 col-xs-12 text-center">
-    <span class="chart-title">Positive/Negative Tweet Count</span>
+    <span class="chart-title">
+      Positive/Negative Keywords
+    </br>
+      <small>
+        Number of keywords identified as being positive or negative
+      </small>
+    </span>
     <div class="visual-container horizontal-center vertical-center row pie-chart">
     </div>
   </div>
 
   <div class="col-md-12 col-xs-12 text-center">
-    <span class="chart-title">Key Word Bubble Chart</span>
+    <span class="chart-title">
+      Keyword Bubble Chart
+    </br>
+      <small>
+        In this chart bubble size tells the number of times a keyword was found.
+        The left axis measures the variance for the sentiment score - roughly this means
+        that the higher a bubble is on the chart, the more varied people's feelings
+        about that keyword are.
+      </small>
+    </span>
     <div class="visual-container horizontal-center row bubble-chart">
     </div>
+  </div>
+
+  <div class="col-md-12 col-xs-12 text-center">
+    <span class="chart-title">
+      Keyword Detail Charts
+    </br>
+      <small>
+        Select a specific keyword to get more detailed information!
+      </small>
+    </span>
+    <select class="col-md-12 col-xs-12" name="word-select"
+            ng-options="word as word.text for word in debateCtrl.words"
+            ng-model="debateCtrl.selected"
+            ng-change="debateCtrl.filterWord(debateCtrl.selected.text)">
+            <option value="">
+              Select Keyword
+            </option>
+    </select>
+
+    <div class="col-md-6 col-xs-12 detail-box-plot">
+    </div>
+
+    <div class="list-group col-md-6 col-xs-12">
+      <h4>Selected word is {{debateCtrl.selected.text}}</h4>
+      <span class="list-group-item">
+        <h5 class="list-group-item-heading">Average Sentiment</h5>
+        <p class="list-group-item-text">{{debateCtrl.selected.average_sentiment}}</p>
+      </span>
+      <span class="list-group-item">
+        <h5 class="list-group-item-heading">Variance</h5>
+        <p class="list-group-item-text">{{debateCtrl.selected.sentiment_variance}}</p>
+      </span>
+      <span class="list-group-item">
+        <h5 class="list-group-item-heading">Tweet Count</h5>
+        <p class="list-group-item-text">{{debateCtrl.selected.count}}</p>
+      </span>
+    </div>
+
   </div>
 
 </div>
