@@ -31,12 +31,12 @@ angular.module('debate-visualization')
         self.trump_words = words;
       );
 
-      # $http.get("<%= asset_path 'data/simple_tweets_hillary.json' %>").then( (response) ->
+      # $http.get("<%= asset_path 'data/simple_tweets_hillary_confirmed.json' %>").then( (response) ->
       #   some_tweets = getRandom(response.data, 5)
       #   self.hillary_tweets = some_tweets.map((d) ->  return String(d['id']));
       # );
       #
-      # $http.get("<%= asset_path 'data/simple_tweets_trump.json' %>").then( (response) ->
+      # $http.get("<%= asset_path 'data/simple_tweets_trump_confirmed.json' %>").then( (response) ->
       #   some_tweets = getRandom(response.data, 5)
       #   self.trump_tweets = some_tweets.map((d) ->  return String(d['id']));
       # );
