@@ -1,8 +1,8 @@
 <div class="row">
 
-  <div class="col-md-6 col-xs-12 text-center">
+  <div class="col-md-6 col-xs-12 text-center padding-5">
     <span class="chart-title">
-      Average Sentiment Intensity
+      Average Sentiment Intensity <button class="btn btn-link btn-sm" ng-click="debateCtrl.resetBox()"><small>reset</small></button>
     </br>
       <small>
         This chart takes the avergae sentiment for each keyword and plots the
@@ -13,9 +13,9 @@
     </div>
   </div>
 
-  <div class="col-md-6 col-xs-12 text-center">
+  <div class="col-md-6 col-xs-12 text-center padding-5">
     <span class="chart-title">
-      Positive/Negative Keywords
+      Positive/Negative Keywords <button class="btn btn-link btn-sm" ng-click="debateCtrl.resetPie()"><small>reset</small></button>
     </br>
       <small>
         Number of keywords identified as being positive or negative
@@ -25,9 +25,9 @@
     </div>
   </div>
 
-  <div class="col-md-12 col-xs-12 text-center">
+  <div class="col-md-12 col-xs-12 text-center padding-5">
     <span class="chart-title">
-      Keyword Bubble Chart
+      Keyword Bubble Chart <button class="btn btn-link btn-sm" ng-click="debateCtrl.resetBubble()"><small>reset</small></button>
     </br>
       <small>
         In this chart bubble size tells the number of times a keyword was found.
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="col-md-12 col-xs-12 text-center">
+  <div class="col-md-12 col-xs-12 text-center padding-5">
     <span class="chart-title">
       Keyword Detail Charts
     </br>
@@ -49,7 +49,7 @@
       </small>
     </span>
     <select class="col-md-12 col-xs-12" name="word-select"
-            ng-options="word as word.text for word in debateCtrl.words"
+            ng-options="word as word.text for word in debateCtrl.words | orderBy:'text'"
             ng-model="debateCtrl.selected"
             ng-change="debateCtrl.filterWord(debateCtrl.selected.text)">
             <option value="">

@@ -1,7 +1,16 @@
+getRandom = (arr, n) ->
+  result = new Array(n);
+  len = arr.length;
+  for i in [0..n-1]
+    x = Math.floor(Math.random() * len);
+    result[i] = arr[x]
+  return result;
+
 angular.module('debate-visualization')
   .controller('appController', ['$scope','$http',
     ($scope, $http) ->
       self = this;
+
       $http.get("<%= asset_path 'data/analysis_hillary.json' %>").then( (response) ->
         json = response.data;
         words = Object.keys(json).map( (d) ->
@@ -11,6 +20,7 @@ angular.module('debate-visualization')
         );
         self.hillary_words = words
       );
+
       $http.get("<%= asset_path 'data/analysis_trump.json' %>").then( (response) ->
         json = response.data;
         words = Object.keys(json).map( (d) ->
@@ -21,17 +31,25 @@ angular.module('debate-visualization')
         self.trump_words = words;
       );
 
+      # $http.get("<%= asset_path 'data/simple_tweets_hillary.json' %>").then( (response) ->
+      #   some_tweets = getRandom(response.data, 5)
+      #   self.hillary_tweets = some_tweets.map((d) ->  return String(d['id']));
+      # );
+      #
+      # $http.get("<%= asset_path 'data/simple_tweets_trump.json' %>").then( (response) ->
+      #   some_tweets = getRandom(response.data, 5)
+      #   self.trump_tweets = some_tweets.map((d) ->  return String(d['id']));
+      # );
+
       self.dem_blue = tinycolor("rgb(35,32,102");
       self.rep_red = tinycolor("rgb(233,29,14)");
       self.positive = tinycolor("rgb(32, 175, 0)");
       self.negative = tinycolor("rgb(232, 116, 0)");
 
       self.hillary_bio = "<%= asset_path 'layout/hillary/bio.html' %>";
-      self.hillary_tweets = ['617749885933232128'];
       self.hillary_content = "<%= asset_path 'layout/hillary/content.html' %>";
 
       self.trump_bio = "<%= asset_path 'layout/trump/bio.html' %>";
-      self.trump_tweets = ['617749885933232128'];
       self.trump_content = "<%= asset_path 'layout/trump/content.html' %>";
 
       $scope.$on("render-done", (event, element) ->

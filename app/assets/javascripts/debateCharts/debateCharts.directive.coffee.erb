@@ -10,6 +10,19 @@ DebateController = ["$scope", ($scope) ->
     dc.renderAll("detail")
     return
 
+  # Reset functions
+  self.resetBox = () ->
+    $scope.chart.filterAll();
+    dc.redrawAll("overview");
+
+  self.resetPie = () ->
+    $scope.pie.filterAll();
+    dc.redrawAll("overview");
+
+  self.resetBubble = () ->
+    $scope.bubble.filterAll();
+    dc.redrawAll("overview");
+
   return
 ]
 
@@ -67,15 +80,13 @@ angular.module("debate-visualization")
           scope.$watch('words', (newVal, oldVal) ->
             if newVal == undefined || newVal == null then return;
             # Charts
-            chart   = dc.boxPlot(boxDom, "overview");
-            pie     = dc.pieChart(pieDom, "overview");
-            bubble  = dc.bubbleChart(bubbleDom, "overview");
-
-            detailBox = dc.boxPlot(detailBoxDom, "detail");
+            scope.chart   = dc.boxPlot(boxDom, "overview");
+            scope.pie     = dc.pieChart(pieDom, "overview");
+            scope.bubble  = dc.bubbleChart(bubbleDom, "overview");
+            scope.detailBox = dc.boxPlot(detailBoxDom, "detail");
 
             # Crossfilter for overview
             cf_overview = crossfilter(scope.words);
-
             # Crossfilter for details
             cf_detail = crossfilter(scope.words);
 
@@ -131,7 +142,7 @@ angular.module("debate-visualization")
               return [];
             wordDetailGroup = wordDetailDimention.group().reduce(addWordDetail, removeWordDetail, initWordDetail)
 
-            chart.width(boxWidth)
+            scope.chart.width(boxWidth)
               .height(boxHeight)
               .margins({top: 20, right: 30, bottom: 30, left: 35})
               .dimension(sentimentDimension)
@@ -142,7 +153,7 @@ angular.module("debate-visualization")
               .xAxisLabel("Overall Sentiment")
               .yAxisLabel("Sentiment Intensity")
 
-            detailBox.width(detailBoxWidth)
+            scope.detailBox.width(detailBoxWidth)
               .height(detailBoxHeight)
               .margins({top: 20, right: 30, bottom: 30, left: 35})
               .dimension(wordDetailDimention)
@@ -156,7 +167,7 @@ angular.module("debate-visualization")
               )
               .yAxisLabel("Sentiment Intensity")
 
-            pie.width(pieWidth)
+            scope.pie.width(pieWidth)
               .height(pieHeigt)
               .radius(pieRadius)
               .dimension(sentimentDimensionCopy)
@@ -167,7 +178,7 @@ angular.module("debate-visualization")
             # Get min and max variance for y-axis scale
             max_var = d3.max(scope.words, (d) -> return d.sentiment_variance);
 
-            bubble.width(bubbleWidth)
+            scope.bubble.width(bubbleWidth)
               .height(bubbleHeight)
               .margins({top: 10, right: 30, bottom: 30, left: 35})
               .dimension(wordDimension)
@@ -206,6 +217,7 @@ angular.module("debate-visualization")
 
             dc.renderAll("overview");
             dc.renderAll("detail");
+
             scope.$emit("render-done", element);
           );
     };  # return
