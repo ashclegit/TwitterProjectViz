@@ -1,12 +1,17 @@
 <div class="row">
 
+  <div class="col-md-12 col-xs-12 text-center">
+    <button class="btn btn-default btn-block btn-sm"
+            ng-click="debateCtrl.resetAll()">Reset All Filters</button>
+  </div>
+
   <div class="col-md-6 col-xs-12 text-center padding-5">
     <span class="chart-title">
       Average Sentiment Intensity <button class="btn btn-link btn-sm" ng-click="debateCtrl.resetBox()"><small>reset</small></button>
     </br>
       <small>
-        This chart takes the avergae sentiment for each keyword and plots the
-        distribution for the entire set. Includes the overall average as well as quartiles.
+        This chart takes the average sentiment for each keyword and plots the
+        distribution for the entire set. Includes the overall average as well as quartiles and median.
       </small>
     </span>
     <div class="visual-container horizontal-center row box-plot">
@@ -64,11 +69,11 @@
       <h4>Selected word is {{debateCtrl.selected.text}}</h4>
       <span class="list-group-item">
         <h5 class="list-group-item-heading">Average Sentiment</h5>
-        <p class="list-group-item-text">{{debateCtrl.selected.average_sentiment}}</p>
+        <p class="list-group-item-text">{{debateCtrl.selected.average_sentiment | number: 3}}</p>
       </span>
       <span class="list-group-item">
         <h5 class="list-group-item-heading">Variance</h5>
-        <p class="list-group-item-text">{{debateCtrl.selected.sentiment_variance}}</p>
+        <p class="list-group-item-text">{{debateCtrl.selected.sentiment_variance | number: 3}}</p>
       </span>
       <span class="list-group-item">
         <h5 class="list-group-item-heading">Tweet Count</h5>

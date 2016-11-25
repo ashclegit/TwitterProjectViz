@@ -5,23 +5,47 @@ DebateController = ["$scope", ($scope) ->
   self.filterWord = (newWord) ->
     if newWord
       $scope.wordDetailDimentionCopy.filterExact(newWord);
+      $scope.wordDimensionCopy.filterExact(newWord);
     else
       $scope.wordDetailDimentionCopy.filterExact("");
-    dc.renderAll("detail")
+      $scope.wordDimensionCopy.filterAll();
+    self.redrawOverview();
+    self.redrawDetail();
     return
 
   # Reset functions
   self.resetBox = () ->
     $scope.chart.filterAll();
-    dc.redrawAll("overview");
+    self.redrawOverview();
 
   self.resetPie = () ->
     $scope.pie.filterAll();
-    dc.redrawAll("overview");
+    self.redrawOverview();
 
   self.resetBubble = () ->
     $scope.bubble.filterAll();
+    self.redrawOverview();
+
+  self.resetDetail = () ->
+    $scope.wordDetailDimentionCopy.filterExact("");
+    $scope.wordDimensionCopy.filterAll();
+    self.redrawOverview();
+    self.redrawDetail();
+
+  self.resetAll = () ->
+    $scope.chart.filterAll();
+    $scope.pie.filterAll();
+    $scope.bubble.filterAll();
+    $scope.wordDetailDimentionCopy.filterExact("");
+    $scope.wordDimensionCopy.filterAll();
+    self.redrawOverview();
+    self.redrawDetail();
+
+  self.redrawOverview = () ->
     dc.redrawAll("overview");
+
+  self.redrawDetail = () ->
+    dc.redrawAll("detail");
 
   return
 ]
@@ -94,11 +118,14 @@ angular.module("debate-visualization")
             sentimentDimension      = cf_overview.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
             sentimentDimensionCopy  = cf_overview.dimension( (d) -> return if d.average_sentiment > 0 then 'positive' else 'negative');
             wordDimension           = cf_overview.dimension( (d) -> return d.text);
+            wordDimensionCopy       = cf_overview.dimension( (d) -> return d.text);
 
             wordDetailDimention     = cf_detail.dimension( (d) -> return d.text);
             wordDetailDimentionCopy = cf_detail.dimension( (d) -> return d.text).filterExact("");
 
+            # Expose these to the controller for filtering
             scope.wordDetailDimentionCopy = wordDetailDimentionCopy;
+            scope.wordDimensionCopy = wordDimensionCopy;
 
             # Groups
             sentimentCount = sentimentDimensionCopy.group().reduceCount();
